@@ -88,6 +88,7 @@
             ]
         }
     },
+    "abandoned": "rinvex/laravel-addresses",
     "minimum-stability": "dev",
     "prefer-stable": true
 }
