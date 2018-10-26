@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Jackpopp\GeoDistance\GeoDistanceTrait;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Rinvex\Addresses\Models\Address.
@@ -69,6 +70,7 @@ class Address extends Model
     use ValidatingTrait;
     use GeoDistanceTrait;
     use CacheableEloquent;
+    use SoftDeletes;
 
     /**
      * {@inheritdoc}
@@ -145,6 +147,10 @@ class Address extends Model
         'is_primary' => 'sometimes|boolean',
         'is_billing' => 'sometimes|boolean',
         'is_shipping' => 'sometimes|boolean',
+    ];
+    
+    protected $dates = [
+        'deleted_at'
     ];
 
     /**
