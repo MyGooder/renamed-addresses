@@ -28,8 +28,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                                             $state
  * @property string                                             $city
  * @property string                                             $postal_code
- * @property float                                              $latitude
- * @property float                                              $longitude
+ * @property float                                              $lat
+ * @property float                                              $lng
  * @property bool                                               $is_primary
  * @property bool                                               $is_billing
  * @property bool                                               $is_shipping
@@ -87,8 +87,8 @@ class Address extends Model
         'state',
         'city',
         'postal_code',
-        'latitude',
-        'longitude',
+        'lat',
+        'lng',
         'is_primary',
         'is_billing',
         'is_shipping',
@@ -109,8 +109,8 @@ class Address extends Model
         'state' => 'string',
         'city' => 'string',
         'postal_code' => 'string',
-        'latitude' => 'float',
-        'longitude' => 'float',
+        'lat' => 'float',
+        'lng' => 'float',
         'is_primary' => 'boolean',
         'is_billing' => 'boolean',
         'is_shipping' => 'boolean',
@@ -142,13 +142,13 @@ class Address extends Model
         'state' => 'nullable|string|max:150',
         'city' => 'nullable|string|max:150',
         'postal_code' => 'nullable|string|max:150',
-        'latitude' => 'nullable|numeric',
-        'longitude' => 'nullable|numeric',
+        'lat' => 'nullable|numeric',
+        'lng' => 'nullable|numeric',
         'is_primary' => 'sometimes|boolean',
         'is_billing' => 'sometimes|boolean',
         'is_shipping' => 'sometimes|boolean',
     ];
-    
+
     protected $dates = [
         'deleted_at'
     ];
@@ -272,8 +272,8 @@ class Address extends Model
                 $geocode = json_decode(file_get_contents("https://maps.google.com/maps/api/geocode/json?address={$query}&sensor=false"));
 
                 if (count($geocode->results)) {
-                    $address->latitude = $geocode->results[0]->geometry->location->lat;
-                    $address->longitude = $geocode->results[0]->geometry->location->lng;
+                    $address->lat = $geocode->results[0]->geometry->location->lat;
+                    $address->lng = $geocode->results[0]->geometry->location->lng;
                 }
             }
         });
